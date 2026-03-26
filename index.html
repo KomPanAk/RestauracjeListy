@@ -241,7 +241,7 @@ function deleteRestaurant(id){ restaurants=restaurants.filter(r=>r.id!==id); sch
 
 function handleSelect(id,person,sel){
   const r=restaurants.find(r=>r.id===id); if(!r)return;
-  r.scores[person]=sel.value===''?null:parseInt(sel.value);
+  r.scores[person]=sel.value===''?null:parseFloat(sel.value);
   sel.className='rating-select '+scoreClass(r.scores[person]);
   updateAvg(id); updateSummary(); scheduleSave();
 }
@@ -270,7 +270,7 @@ function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/
 
 function buildSel(id,p,val){
   const opts=['<option value="">—</option>'];
-  for(let i=1;i<=10;i++) opts.push('<option value="'+i+'"'+(val===i?' selected':'')+'>'+i+'</option>');
+  for(let i=1;i<=20;i++){const v=i*0.5; opts.push('<option value="'+v+'"'+(val===v?' selected':'')+'>'+v+'</option>');}
   return '<select class="rating-select '+scoreClass(val)+'" data-id="'+id+'" data-person="'+p+'">'+opts.join('')+'</select>';
 }
 
