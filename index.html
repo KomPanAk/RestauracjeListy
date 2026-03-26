@@ -62,10 +62,10 @@
     .add-form button:active { transform:scale(.97); }
 
     /* TABLE */
-    .table-header { display:grid; grid-template-columns:1fr repeat(3,120px) 70px 48px; gap:8px; padding:0 16px 12px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+    .table-header { display:grid; grid-template-columns:1fr 150px repeat(3,100px) 70px 48px; gap:8px; padding:0 16px 12px; border-bottom:1px solid var(--border); margin-bottom:8px; }
     .table-header span { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-align:center; }
     .table-header span:first-child { text-align:left; }
-    .restaurant-card { display:grid; grid-template-columns:1fr repeat(3,120px) 70px 48px; gap:8px; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; animation:slideIn .3s ease; }
+    .restaurant-card { display:grid; grid-template-columns:1fr 150px repeat(3,100px) 70px 48px; gap:8px; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; animation:slideIn .3s ease; }
     @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
     .restaurant-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--cream); word-break:break-word; }
     .rating-cell { display:flex; flex-direction:column; align-items:center; gap:4px; }
@@ -82,6 +82,13 @@
     .avg-value.na { color:var(--muted); font-size:16px; }
     .delete-btn { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:4px; transition:color .2s; display:flex; align-items:center; justify-content:center; }
     .delete-btn:hover { color:var(--red); }
+
+    /* STATUS */
+    .status-select { appearance:none; -webkit-appearance:none; width:100%; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; padding:7px 8px; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--muted); cursor:pointer; outline:none; transition:border-color .2s,color .2s; text-align:center; }
+    .status-select:focus { border-color:var(--gold); }
+    .status-visited { border-color:#5a9e6f !important; color:#5a9e6f !important; }
+    .status-todo    { border-color:#4a90b8 !important; color:#4a90b8 !important; }
+    .status-torate  { border-color:#c9a84c !important; color:#c9a84c !important; }
 
     /* SUMMARY */
     .summary { margin-top:32px; padding:20px 24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
@@ -144,6 +151,7 @@
 
   <div class="table-header">
     <span>Restauracja</span>
+    <span>Status</span>
     <span>Adam</span>
     <span>Zuzia</span>
     <span>Piotr</span>
@@ -233,7 +241,7 @@ function setStatus(s,t){ document.getElementById('statusDot').className='status-
 function addRestaurant(){
   const inp=document.getElementById('restaurantInput');
   const name=inp.value.trim(); if(!name){inp.focus();return;}
-  restaurants.push({id:Date.now(),name,scores:{Adam:null,Zuzia:null,Piotr:null}});
+  restaurants.push({id:Date.now(),name,status:'todo',scores:{Adam:null,Zuzia:null,Piotr:null}});
   scheduleSave(); render(); inp.value=''; inp.focus();
 }
 
@@ -274,6 +282,31 @@ function buildSel(id,p,val){
   return '<select class="rating-select '+scoreClass(val)+'" data-id="'+id+'" data-person="'+p+'">'+opts.join('')+'</select>';
 }
 
+function handleStatus(id,sel){
+  const r=restaurants.find(r=>r.id===id); if(!r)return;
+  r.status=sel.value;
+  sel.className='status-select '+statusClass(sel.value);
+  scheduleSave();
+}
+
+function statusClass(v){
+  if(v==='visited') return 'status-visited';
+  if(v==='todo')    return 'status-todo';
+  if(v==='torate')  return 'status-torate';
+  return '';
+}
+
+function buildStatusSel(id,val){
+  const opts=[
+    {v:'todo',   l:'🏪 Do odwiedzenia'},
+    {v:'torate', l:'🧐 Do oceny'},
+    {v:'visited',l:'✅ Odwiedzone'},
+  ];
+  return '<select class="status-select '+statusClass(val)+'" data-id="'+id+'" onchange="handleStatus('+id+',this)">'+
+    opts.map(o=>'<option value="'+o.v+'"'+(val===o.v?' selected':'')+'>'+o.l+'</option>').join('')+
+  '</select>';
+}
+
 function render(){
   const list=document.getElementById('restaurantList');
   if(!restaurants.length){
@@ -283,7 +316,7 @@ function render(){
   list.innerHTML=restaurants.map(r=>{
     const avg=calcAvg(r.scores);
     const cells=PEOPLE.map(p=>'<div class="rating-cell"><span class="person-label">'+p+'</span>'+buildSel(r.id,p,r.scores[p])+'</div>').join('');
-    return '<div class="restaurant-card" id="card-'+r.id+'"><div class="restaurant-name">'+esc(r.name)+'</div>'+cells+
+    return '<div class="restaurant-card" id="card-'+r.id+'"><div class="restaurant-name">'+esc(r.name)+'</div>'+buildStatusSel(r.id,r.status||'todo')+cells+
       '<div class="avg-badge"><div class="avg-value'+(avg===null?' na':'')+'" data-avg="'+r.id+'">'+( avg||'—')+'</div></div>'+
       '<button class="delete-btn" onclick="deleteRestaurant('+r.id+')" title="Usuń">✕</button></div>';
   }).join('');
