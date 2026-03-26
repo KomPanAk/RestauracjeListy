@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oceny Restauracji</title>
   <link rel="icon" type="image/png" href="favicon.png">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0f0e0c; --surface: #1a1814; --card: #211f1b; --border: #2e2b26;
@@ -13,23 +13,23 @@
       --muted: #7a7163; --red: #d45f3c; --green: #5a9e6f;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--cream); min-height: 100vh; padding: 40px 20px 80px; }
+    body { font-family: 'Dosis', sans-serif; background: var(--bg); color: var(--cream); min-height: 100vh; padding: 40px 20px 80px; }
     body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"); background-size:200px; pointer-events:none; z-index:0; opacity:.4; }
     .container { position:relative; z-index:1; max-width:900px; margin:0 auto; }
 
     /* SETUP */
     #setupScreen { max-width:480px; margin:60px auto; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:40px; }
-    #setupScreen h2 { font-family:'Playfair Display',serif; font-size:26px; color:var(--gold); margin-bottom:8px; }
+    #setupScreen h2 { font-family:'Dosis',sans-serif; font-size:26px; color:var(--gold); margin-bottom:8px; }
     #setupScreen p { color:var(--muted); font-size:14px; margin-bottom:24px; line-height:1.6; }
     #setupScreen p a { color:var(--gold); text-decoration:none; }
     #setupScreen p a:hover { text-decoration:underline; }
     .setup-field { margin-bottom:16px; }
     .setup-field label { display:block; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-    .setup-field input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--cream); outline:none; transition:border-color .2s; }
+    .setup-field input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 14px; font-family:'Dosis',sans-serif; font-size:14px; color:var(--cream); outline:none; transition:border-color .2s; }
     .setup-field input:focus { border-color:var(--gold); }
     .setup-field input::placeholder { color:var(--muted); }
     .setup-hint { font-size:12px; color:var(--muted); margin-top:6px; }
-    .btn-primary { width:100%; background:var(--gold); color:#0f0e0c; border:none; border-radius:8px; padding:14px; font-family:'DM Sans',sans-serif; font-weight:600; font-size:14px; cursor:pointer; margin-top:8px; transition:background .2s,transform .1s; }
+    .btn-primary { width:100%; background:var(--gold); color:#0f0e0c; border:none; border-radius:8px; padding:14px; font-family:'Dosis',sans-serif; font-weight:600; font-size:14px; cursor:pointer; margin-top:8px; transition:background .2s,transform .1s; }
     .btn-primary:hover { background:var(--gold-light); }
     .btn-primary:active { transform:scale(.98); }
     .btn-primary:disabled { opacity:.5; cursor:not-allowed; }
@@ -43,35 +43,35 @@
     .status-dot.error { background:var(--red); }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
     .status-text { color:var(--muted); }
-    .btn-disconnect { background:none; border:1px solid var(--border); border-radius:6px; color:var(--muted); font-size:12px; padding:4px 10px; cursor:pointer; font-family:'DM Sans',sans-serif; transition:border-color .2s,color .2s; }
+    .btn-disconnect { background:none; border:1px solid var(--border); border-radius:6px; color:var(--muted); font-size:12px; padding:4px 10px; cursor:pointer; font-family:'Dosis',sans-serif; transition:border-color .2s,color .2s; }
     .btn-disconnect:hover { border-color:var(--red); color:var(--red); }
 
     /* HEADER */
     header { text-align:center; margin-bottom:40px; }
     header .eyebrow { font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
-    header h1 { font-family:'Playfair Display',serif; font-size:clamp(36px,7vw,60px); font-weight:900; line-height:1.1; color:var(--cream); }
+    header h1 { font-family:'Dosis',sans-serif; font-size:clamp(36px,7vw,60px); font-weight:900; line-height:1.1; color:var(--cream); }
     header h1 span { color:var(--gold); font-style:italic; }
     .divider { width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--gold),transparent); margin:20px auto 0; }
 
     /* FORM */
     .add-form { display:flex; gap:12px; margin-bottom:32px; }
-    .add-form input { flex:1; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px 18px; font-family:'DM Sans',sans-serif; font-size:15px; color:var(--cream); outline:none; transition:border-color .2s; }
+    .add-form input { flex:1; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:14px 18px; font-family:'Dosis',sans-serif; font-size:15px; color:var(--cream); outline:none; transition:border-color .2s; }
     .add-form input::placeholder { color:var(--muted); }
     .add-form input:focus { border-color:var(--gold); }
-    .add-form button { background:var(--gold); color:#0f0e0c; border:none; border-radius:8px; padding:14px 28px; font-family:'DM Sans',sans-serif; font-weight:600; font-size:14px; cursor:pointer; white-space:nowrap; transition:background .2s,transform .1s; }
+    .add-form button { background:var(--gold); color:#0f0e0c; border:none; border-radius:8px; padding:14px 28px; font-family:'Dosis',sans-serif; font-weight:600; font-size:14px; cursor:pointer; white-space:nowrap; transition:background .2s,transform .1s; }
     .add-form button:hover { background:var(--gold-light); }
     .add-form button:active { transform:scale(.97); }
 
     /* TABLE */
-    .table-header { display:grid; grid-template-columns:1fr 150px repeat(3,100px) 70px 48px; gap:8px; padding:0 16px 12px; border-bottom:1px solid var(--border); margin-bottom:8px; }
+    .table-header { display:grid; grid-template-columns:1fr 150px repeat(4,90px) 70px 48px; gap:8px; padding:0 16px 12px; border-bottom:1px solid var(--border); margin-bottom:8px; }
     .table-header span { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-align:center; }
     .table-header span:first-child { text-align:left; }
-    .restaurant-card { display:grid; grid-template-columns:1fr 150px repeat(3,100px) 70px 48px; gap:8px; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; animation:slideIn .3s ease; }
+    .restaurant-card { display:grid; grid-template-columns:1fr 150px repeat(4,90px) 70px 48px; gap:8px; align-items:center; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:8px; animation:slideIn .3s ease; }
     @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
-    .restaurant-name { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; color:var(--cream); word-break:break-word; }
+    .restaurant-name { font-family:'Dosis',sans-serif; font-size:16px; font-weight:700; color:var(--cream); word-break:break-word; }
     .rating-cell { display:flex; flex-direction:column; align-items:center; gap:4px; }
     .rating-cell .person-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); display:none; }
-    .rating-select { appearance:none; -webkit-appearance:none; width:64px; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; padding:8px 6px; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:500; color:var(--cream); text-align:center; cursor:pointer; outline:none; transition:border-color .2s,color .2s; }
+    .rating-select { appearance:none; -webkit-appearance:none; width:64px; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; padding:8px 6px; font-family:'Dosis',sans-serif; font-size:16px; font-weight:500; color:var(--cream); text-align:center; cursor:pointer; outline:none; transition:border-color .2s,color .2s; }
     .rating-select:focus { border-color:var(--gold); }
     .score-none { color:var(--muted); }
     .score-low  { color:#b07070 !important; border-color:#6b3e3e !important; }
@@ -79,13 +79,13 @@
     .score-good { color:var(--gold) !important; border-color:var(--gold) !important; }
     .score-top  { color:var(--green) !important; border-color:var(--green) !important; }
     .avg-badge { text-align:center; }
-    .avg-value { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--gold); }
+    .avg-value { font-family:'Dosis',sans-serif; font-size:20px; font-weight:700; color:var(--gold); }
     .avg-value.na { color:var(--muted); font-size:16px; }
     .delete-btn { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; padding:4px; transition:color .2s; display:flex; align-items:center; justify-content:center; }
     .delete-btn:hover { color:var(--red); }
 
     /* STATUS */
-    .status-select { appearance:none; -webkit-appearance:none; width:100%; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; padding:7px 8px; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--muted); cursor:pointer; outline:none; transition:border-color .2s,color .2s; text-align:center; }
+    .status-select { appearance:none; -webkit-appearance:none; width:100%; background:var(--surface); border:1.5px solid var(--border); border-radius:6px; padding:7px 8px; font-family:'Dosis',sans-serif; font-size:13px; color:var(--muted); cursor:pointer; outline:none; transition:border-color .2s,color .2s; text-align:center; }
     .status-select:focus { border-color:var(--gold); }
     .status-visited { border-color:#5a9e6f !important; color:#5a9e6f !important; }
     .status-todo    { border-color:#4a90b8 !important; color:#4a90b8 !important; }
@@ -93,11 +93,11 @@
 
     /* SUMMARY */
     .summary { margin-top:32px; padding:20px 24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
-    .summary h2 { font-family:'Playfair Display',serif; font-size:18px; color:var(--gold); margin-bottom:16px; }
-    .summary-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .summary h2 { font-family:'Dosis',sans-serif; font-size:18px; color:var(--gold); margin-bottom:16px; }
+    .summary-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
     .summary-item { text-align:center; }
     .summary-item .person { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
-    .summary-item .best { font-family:'Playfair Display',serif; font-size:15px; font-weight:700; color:var(--cream); }
+    .summary-item .best { font-family:'Dosis',sans-serif; font-size:15px; font-weight:700; color:var(--cream); }
     .summary-item .score { font-size:12px; color:var(--gold); }
     .empty-state { text-align:center; padding:48px 20px; color:var(--muted); font-size:14px; }
     .empty-state .icon { font-size:36px; margin-bottom:12px; }
@@ -156,6 +156,7 @@
     <span>Adam</span>
     <span>Zuzia</span>
     <span>Piotr</span>
+    <span>Kasia</span>
     <span>Śr.</span>
     <span></span>
   </div>
@@ -169,7 +170,7 @@
 </div>
 
 <script>
-const PEOPLE = ['Adam','Zuzia','Piotr'];
+const PEOPLE = ['Adam','Zuzia','Piotr','Kasia'];
 const FILENAME = 'restauracje.json';
 let token='', gistId='', restaurants=[], saveTimer=null;
 
@@ -242,7 +243,7 @@ function setStatus(s,t){ document.getElementById('statusDot').className='status-
 function addRestaurant(){
   const inp=document.getElementById('restaurantInput');
   const name=inp.value.trim(); if(!name){inp.focus();return;}
-  restaurants.push({id:Date.now(),name,status:'todo',scores:{Adam:null,Zuzia:null,Piotr:null}});
+  restaurants.push({id:Date.now(),name,status:'todo',scores:{Adam:null,Zuzia:null,Piotr:null,Kasia:null}});
   scheduleSave(); render(); inp.value=''; inp.focus();
 }
 
@@ -301,7 +302,7 @@ function buildStatusSel(id,val){
   const opts=[
     {v:'todo',   l:'🏪 Do odwiedzenia'},
     {v:'torate', l:'🧐 Do oceny'},
-    {v:'visited',l:'✅ Odwiedzone'},
+    {v:'visited',l:'✅ Odwiedzone i ocenione'},
   ];
   return '<select class="status-select '+statusClass(val)+'" data-id="'+id+'" onchange="handleStatus('+id+',this)">'+
     opts.map(o=>'<option value="'+o.v+'"'+(val===o.v?' selected':'')+'>'+o.l+'</option>').join('')+
